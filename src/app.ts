@@ -3,6 +3,8 @@ import './style.css'
 // three.js
 import * as THREE from 'three'
 import { Earth } from './earth'
+import {Tree} from './tree';
+
 
 
 export class App {
@@ -11,33 +13,53 @@ export class App {
     protected camera: THREE.Camera;
     protected renderer: THREE.WebGLRenderer;
     protected earth: Earth;
+    protected tree: Tree;
 
     constructor() {
         this.createScene();
         this.createCamera();
         this.createLight();
-        this.createSimpleMesh();
+        //this.createSimpleMesh();
         this.createRenderer();
         this.createErath(this.scene)
+        this.tree = new Tree(this.scene)
         this.animate();
     }
 
     protected createScene() {
         this.scene = new THREE.Scene();
+        this.scene.fog = new THREE.Fog(0xf7d9aa, 100, 950);
 
     }
 
     protected createCamera() {
-        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+		//this.camera.position.x = 6.5	
+		this.camera.position.y = 2.5
+		this.camera.position.z = 6.5
+
+		//this.camera.lookAt(this.scene.position)
     }
 
     protected createLight() {
-        const ambient = new THREE.AmbientLight(0xffffff);
-
-        this.scene.add(ambient);
+        var hemisphereLight = new THREE.HemisphereLight(0xfffafa,0x000000, .9)
+		this.scene.add(hemisphereLight);
+		var sun = new THREE.DirectionalLight( 0xcdc1c5, 0.9);
+		sun.position.set( 12,6,-7 );
+		sun.castShadow = true;
+		this.scene.add(sun);
+		//Set up shadow properties for the sun light
+		sun.shadow.mapSize.width = 256;
+		sun.shadow.mapSize.height = 256;
+		sun.shadow.camera.near = 0.5;
+		sun.shadow.camera.far = 50 ;				
     }
     protected createRenderer() {
-	    this.renderer = new THREE.WebGLRenderer();
+        this.renderer = new THREE.WebGLRenderer({alpha:true});//renderer with transparent backdrop
+		this.renderer.setClearColor(0xfffafa, 1); 
+    	this.renderer.shadowMap.enabled = true;//enable shadow
+    	this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 	    this.updateRendererSize();
 	    document.body.appendChild(this.renderer.domElement);
 	}
@@ -48,7 +70,7 @@ export class App {
 
 	protected animate() {
 	    window.requestAnimationFrame(() => this.animate());
-
+	    this.earth.rotate();
 	    this.renderer.render(this.scene, this.camera);
 	}
 
@@ -72,24 +94,6 @@ export class App {
 
 		this.scene.add(light2)
 
-		let material = new THREE.MeshBasicMaterial({
-			color: 0xaaaaaa,
-			wireframe: true
-		})
-
-		// create a box and add it to the scene
-		let box = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material)
-
-		this.scene.add(box)
-
-		box.position.x = 0.5
-		box.rotation.y = 0.5
-
-		this.camera.position.x = 5
-		this.camera.position.y = 5
-		this.camera.position.z = 5
-
-		this.camera.lookAt(this.scene.position)
 	}
 
 	protected createErath(scene){
