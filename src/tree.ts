@@ -7,18 +7,15 @@ import {Colors} from './colors';
 
 export class Tree {
 	
-	protected scene: THREE.Scene;
+	
 	protected mesh: THREE.Mesh
 	
 
-	constructor(scene: THREE.Scene) {
-		this.scene = scene;
-
-		this.scene.add(this.createTree())
-
+	constructor() {
+	
 	}
 
-	protected createTree(){
+	public createTree(){
 		var sides=8;
 		var tiers=6;
 		var scalarMultiplier=(Math.random()*(0.25-0.1))+0.05;

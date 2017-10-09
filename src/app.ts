@@ -4,6 +4,7 @@ import './style.css'
 import * as THREE from 'three'
 import { Earth } from './earth'
 import {Tree} from './tree';
+import {Forest} from './forest'
 
 
 
@@ -14,15 +15,16 @@ export class App {
     protected renderer: THREE.WebGLRenderer;
     protected earth: Earth;
     protected tree: Tree;
+    protected forest:  Forest;
 
     constructor() {
         this.createScene();
         this.createCamera();
         this.createLight();
-        //this.createSimpleMesh();
         this.createRenderer();
         this.createErath(this.scene)
-        this.tree = new Tree(this.scene)
+        this.forest = new Forest(this.scene, this.earth)
+        this.forest.makeTrees();
         this.animate();
     }
 

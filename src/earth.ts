@@ -16,7 +16,7 @@ export class Earth {
 
 		var sides=40;
 		var tiers=40;
-		var sphereGeometry = new THREE.SphereGeometry( 26, sides,tiers);
+		var sphereGeometry = new THREE.SphereGeometry( 24, sides,tiers);
 		var sphereMaterial = new THREE.MeshStandardMaterial( { color: 0xfffafa ,shading:THREE.FlatShading} )
 	
 		
@@ -64,5 +64,17 @@ export class Earth {
 
 	public rotate(){
 		this.rollingGroundSphere.rotation.x+=0.001
+	}
+
+	public getPosition(){
+		return this.rollingGroundSphere.position;
+	}
+
+	public getRotation(){
+		return this.rollingGroundSphere.rotation;
+	}
+
+	public add(mesh : THREE.Mesh){
+		this.rollingGroundSphere.add(mesh);
 	}
 }
