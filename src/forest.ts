@@ -51,7 +51,7 @@ export class Forest {
 			sphericalHelper.set( worldRadius-0.3, forestAreaAngle, row );
 		}
 		newTree.position.setFromSpherical( sphericalHelper );
-		var rollingGroundVector = this.earth.getPosition();
+		var rollingGroundVector = this.earth.getPosition().clone().normalize();
 		var treeVector=newTree.position.clone().normalize();
 		newTree.quaternion.setFromUnitVectors(treeVector,rollingGroundVector);
 		

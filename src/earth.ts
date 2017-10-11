@@ -16,7 +16,7 @@ export class Earth {
 
 		var sides=40;
 		var tiers=40;
-		var sphereGeometry = new THREE.SphereGeometry( 24, sides,tiers);
+		var sphereGeometry = new THREE.SphereGeometry( 26, sides,tiers);
 		var sphereMaterial = new THREE.MeshStandardMaterial( { color: 0xfffafa ,shading:THREE.FlatShading} )
 	
 		
