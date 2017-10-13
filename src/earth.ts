@@ -14,9 +14,10 @@ export class Earth {
 	constructor(scene: THREE.Scene) {
 		this.scene = scene;
 
-		var sides=40;
-		var tiers=40;
-		var sphereGeometry = new THREE.SphereGeometry( 26, sides,tiers);
+		var tiers = 120
+		var sides = 120
+
+		var earthGeometry = new THREE.CylinderGeometry( 26,26, 360,tiers,sides);
 		var sphereMaterial = new THREE.MeshStandardMaterial( { color: 0xfffafa ,shading:THREE.FlatShading} )
 	
 		
@@ -33,24 +34,11 @@ export class Earth {
 			currentTier=j;
 			for(var i=0;i<sides;i++){
 				vertexIndex=(currentTier*sides)+1;
-				vertexVector=sphereGeometry.vertices[i+vertexIndex].clone();
-				if(j%2!==0){
-					if(i==0){
-						firstVertexVector=vertexVector.clone();
-					}
-					nextVertexVector=sphereGeometry.vertices[i+vertexIndex+1].clone();
-					if(i==sides-1){
-						nextVertexVector=firstVertexVector;
-					}
-					lerpValue=(Math.random()*(0.75-0.25))+0.25;
-					vertexVector.lerp(nextVertexVector,lerpValue);
-				}
-				heightValue=(Math.random()*maxHeight)-(maxHeight/2);
-				offset=vertexVector.clone().normalize().multiplyScalar(heightValue);
-				sphereGeometry.vertices[i+vertexIndex]=(vertexVector.add(offset));
+				heightValue=Math.random()*0.2;
+				earthGeometry.vertices[i+vertexIndex].z+=heightValue;
 			}	
 		}
-		this.rollingGroundSphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
+		this.rollingGroundSphere = new THREE.Mesh( earthGeometry, sphereMaterial );
 		this.rollingGroundSphere.receiveShadow = true;
 		this.rollingGroundSphere.castShadow=false;
 		this.rollingGroundSphere.rotation.z=-Math.PI/2;

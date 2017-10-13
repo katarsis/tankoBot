@@ -5,6 +5,7 @@ import * as THREE from 'three'
 import { Earth } from './earth'
 import {Tree} from './tree';
 import {Forest} from './forest'
+import {Panzer} from './panzer'
 
 
 
@@ -16,6 +17,7 @@ export class App {
     protected earth: Earth;
     protected tree: Tree;
     protected forest:  Forest;
+    protected panzer: Panzer;
 
     constructor() {
         this.createScene();
@@ -23,6 +25,7 @@ export class App {
         this.createLight();
         this.createRenderer();
         this.createErath(this.scene)
+        this.createPanzer(this.scene)
         this.forest = new Forest(this.scene, this.earth)
         this.forest.makeTrees();
         this.animate();
@@ -30,7 +33,7 @@ export class App {
 
     protected createScene() {
         this.scene = new THREE.Scene();
-        this.scene.fog = new THREE.Fog(0xf7d9aa, 100, 950);
+        this.scene.fog = new THREE.Fog(0xf7d9aa, 5, 20);
 
     }
 
@@ -38,17 +41,17 @@ export class App {
         this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 		//this.camera.position.x = 6.5	
-		this.camera.position.y = 2.5
-		this.camera.position.z = 6.5
+		this.camera.position.y = 4.5
+		this.camera.position.z = 10.5
 
-		//this.camera.lookAt(this.scene.position)
+		this.camera.lookAt(this.scene.position)
     }
 
     protected createLight() {
         var hemisphereLight = new THREE.HemisphereLight(0xfffafa,0x000000, .9)
 		this.scene.add(hemisphereLight);
 		var sun = new THREE.DirectionalLight( 0xcdc1c5, 0.9);
-		sun.position.set( 12,6,-7 );
+		sun.position.set( 26,10,-30 );
 		sun.castShadow = true;
 		this.scene.add(sun);
 		//Set up shadow properties for the sun light
@@ -76,30 +79,14 @@ export class App {
 	    this.renderer.render(this.scene, this.camera);
 	}
 
-	protected createSimpleMesh() {
-
-		// add axis to the scene
-		let axis = new THREE.AxisHelper(10)
-
-		this.scene.add(axis)
-
-		// add lights
-		let light = new THREE.DirectionalLight(0xffffff, 1.0)
-
-		light.position.set(100, 100, 100)
-
-		this.scene.add(light)
-
-		let light2 = new THREE.DirectionalLight(0xffffff, 1.0)
-
-		light2.position.set(-100, 100, -100)
-
-		this.scene.add(light2)
-
-	}
+	
 
 	protected createErath(scene){
 		this.earth = new Earth(scene);
+	}
+
+	protected createPanzer(scene){
+		this.panzer = new Panzer(scene);
 	}
 }
 

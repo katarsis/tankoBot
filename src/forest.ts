@@ -4,8 +4,8 @@ import './style.css'
 import * as THREE from 'three'
 import {Tree} from './tree'
 import {Earth} from './earth'
-
 import {Colors} from './colors';
+import {Cylindrical} from 'three/src/math/Cylindrical'
 
 export class Forest {
 	
@@ -20,42 +20,36 @@ export class Forest {
 	}
 
 	public makeTrees(){
-		var numTrees=36;
-		var gap=6.28/36;
+		var numTrees=360;
+		var gap=6.28/360;
 		for(var i=0;i<numTrees;i++){
-			this.addTree(false,i*gap, true, i);
-			this.addTree(false,i*gap, false, i);
+			this.addTree(false,i*gap, i);
 		}	
 	}
 
-	protected addTree(inPath, row, isLeft, count){
+	protected addTree(inPath, row,  count){
 		var newTree;
-		var sphericalHelper = new THREE.Spherical();
+		var cylindricalHelper = new Cylindrical();
 		var worldRadius = 26
 		var pathAngleValues=[1.52,1.57,1.62];
 		if(inPath){
 			if(this.treesPool.length == 0) return;
 			newTree=this.treesPool.pop();
 			newTree.visible=true;
-			//console.log("add tree");
 			this.treesInPath.push(newTree);
-			sphericalHelper.set( worldRadius-0.3, pathAngleValues[row], -this.earth.getRotation().x+4 );
+			cylindricalHelper.set( worldRadius-0.3, pathAngleValues[row], -this.earth.getRotation().x+4 );
 		}else{
 			newTree = new Tree().createTree();
 			var forestAreaAngle = 0;
-			if(isLeft){
-				forestAreaAngle = 1.68+Math.random()*0.1;
-			}else{
-				forestAreaAngle = 1.5-Math.random()*0.1;
-			}
-			sphericalHelper.set( worldRadius-0.3, forestAreaAngle, row );
+			var distant = Math.random()*40
+			cylindricalHelper.set( worldRadius-0.3, row, -20 +distant);
 		}
-		newTree.position.setFromSpherical( sphericalHelper );
+		newTree.position.setFromCylindrical( cylindricalHelper );
 		var rollingGroundVector = this.earth.getPosition().clone().normalize();
 		var treeVector=newTree.position.clone().normalize();
 		newTree.quaternion.setFromUnitVectors(treeVector,rollingGroundVector);
 		
-		//newTree.rotation.z+=+-3.8*Math.PI/10;
+		newTree.rotation.z+=+-0.1*Math.PI/10;
 		
 		this.earth.add(newTree);
 	}
