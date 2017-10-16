@@ -16,9 +16,9 @@ export class Earth {
 
 		var tiers = 120
 		var sides = 120
-
+		//0xfffafa
 		var earthGeometry = new THREE.CylinderGeometry( 26,26, 360,tiers,sides);
-		var sphereMaterial = new THREE.MeshStandardMaterial( { color: 0xfffafa ,shading:THREE.FlatShading} )
+		var sphereMaterial = new THREE.MeshStandardMaterial( { color: Colors.brown ,shading:THREE.FlatShading} )
 	
 		
 		var vertexIndex;
@@ -51,7 +51,7 @@ export class Earth {
 	}
 
 	public rotate(){
-		this.rollingGroundSphere.rotation.x+=0.001
+		this.rollingGroundSphere.rotation.x+=0.005
 	}
 
 	public getPosition(){

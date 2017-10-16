@@ -29,20 +29,22 @@ export class App {
         this.forest = new Forest(this.scene, this.earth)
         this.forest.makeTrees();
         this.animate();
+        document.onkeydown = (e: KeyboardEvent) =>{
+            this.handleKeyDown(e)
+        }
     }
 
     protected createScene() {
         this.scene = new THREE.Scene();
         this.scene.fog = new THREE.Fog(0xf7d9aa, 5, 20);
-
     }
 
     protected createCamera() {
         this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-		//this.camera.position.x = 6.5	
-		this.camera.position.y = 4.5
-		this.camera.position.z = 10.5
+		//this.camera.position.x = 15.5	
+		this.camera.position.y = 5.5
+		this.camera.position.z = 12.5
 
 		this.camera.lookAt(this.scene.position)
     }
@@ -87,6 +89,14 @@ export class App {
 
 	protected createPanzer(scene){
 		this.panzer = new Panzer(scene);
+	}
+
+	protected handleKeyDown(keyEvent){
+		if ( keyEvent.keyCode === 37) {//left
+			this.panzer.move(-0.3)
+		} else if ( keyEvent.keyCode === 39) {//right
+			this.panzer.move(0.3)
+		}
 	}
 }
 
