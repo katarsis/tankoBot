@@ -8,7 +8,7 @@ export class Panzer {
 
 	constructor(scene : THREE.Scene) {
 		this.scene = scene;
-		var panzerGeometry = new THREE.BoxGeometry( 1,1, 2);
+		var panzerGeometry = new THREE.BoxGeometry( 1,0.6, 2);
 
 		var panzerMaterial = new THREE.MeshStandardMaterial( { color: 0xfffafa ,shading:THREE.FlatShading} )
 
@@ -43,14 +43,52 @@ export class Panzer {
 		panzerLukMesh.position.z=8.15
 		panzerLukMesh.position.x=0.1
 
-		var panzerGus1Geom = new THREE.BoxGeometry( 0.2, 1, 2);
+
+
+		var panzerGus1Geom = new THREE.BoxGeometry( 0.2, 1, 1.6);
 		var panzerGus1Mesh = new THREE.Mesh( panzerGus1Geom, panzerMaterial );
 		panzerGus1Mesh.position.y=1.5
 		panzerGus1Mesh.position.x=0.5
 		panzerGus1Mesh.position.z=8
 		panzerGus1Mesh.rotation.x = Math.PI/360*10
 
-		var panzerGus2Geom = new THREE.BoxGeometry( 0.2, 1, 2);
+		var panzerG1Geom = new THREE.CylinderGeometry( 0.5,0.5, 0.2);
+		var panzerG1Mesh =  new THREE.Mesh( panzerG1Geom, panzerMaterial );
+		panzerG1Mesh.position.y=1.45
+		panzerG1Mesh.position.z=8.7
+		panzerG1Mesh.position.x=.5
+		panzerG1Mesh.rotation.z = Math.PI/360*180
+
+		var panzerG12Geom = new THREE.CylinderGeometry( 0.5,0.5, 0.2);
+		var panzerG12Mesh =  new THREE.Mesh( panzerG12Geom, panzerMaterial );
+		panzerG12Mesh.position.y=1.45
+		panzerG12Mesh.position.z=8.7
+		panzerG12Mesh.position.x=-0.5
+		panzerG12Mesh.rotation.z = Math.PI/360*180
+
+		var panzerG12Geom = new THREE.CylinderGeometry( 0.5,0.5, 0.2);
+		var panzerG12Mesh =  new THREE.Mesh( panzerG12Geom, panzerMaterial );
+		panzerG12Mesh.position.y=1.45
+		panzerG12Mesh.position.z=8.7
+		panzerG12Mesh.position.x=-0.5
+		panzerG12Mesh.rotation.z = Math.PI/360*180
+
+		var panzerG2Geom = new THREE.CylinderGeometry( 0.5,0.5, 0.2);
+		var panzerG2Mesh =  new THREE.Mesh( panzerG2Geom, panzerMaterial );
+		panzerG2Mesh.position.y=1.58
+		panzerG2Mesh.position.z=7.5
+		panzerG2Mesh.position.x=-0.5
+		panzerG2Mesh.rotation.z = Math.PI/360*180
+
+		var panzerG22Geom = new THREE.CylinderGeometry( 0.5,0.5, 0.2);
+		var panzerG22Mesh =  new THREE.Mesh( panzerG22Geom, panzerMaterial );
+		panzerG22Mesh.position.y=1.58
+		panzerG22Mesh.position.z=7.5
+		panzerG22Mesh.position.x=0.5
+		panzerG22Mesh.rotation.z = Math.PI/360*180
+
+
+		var panzerGus2Geom = new THREE.BoxGeometry( 0.2, 1, 1.6);
 		var panzerGus2Mesh = new THREE.Mesh( panzerGus2Geom, panzerMaterial );
 		panzerGus2Mesh.position.y=1.5
 		panzerGus2Mesh.position.x=-.5
@@ -63,10 +101,21 @@ export class Panzer {
 		this.panzer.add(panzerGunMesh)
 		this.panzer.add(panzerLukMesh)
 		this.panzer.add(panzerGus1Mesh)
+
+		this.panzer.add(panzerG1Mesh)
+		this.panzer.add(panzerG12Mesh)
+
+		this.panzer.add(panzerG2Mesh)
+		this.panzer.add(panzerG22Mesh)
+
 		this.panzer.add(panzerGus2Mesh)
 		this.panzer.add(this.panzerMesh)
-		this.panzer.scale.y =0.8
-		this.panzer.rotation.x = -Math.PI/360*5
+		this.panzer.scale.x =0.7
+		this.panzer.scale.z =0.7
+		this.panzer.scale.y =0.7
+		this.panzer.position.z =3
+		this.panzer.rotation.x = -Math.PI/360*10
+
 		this.scene.add(this.panzer)
 	}
 

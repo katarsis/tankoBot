@@ -2,7 +2,7 @@
 import './style.css'
 // three.js
 import * as THREE from 'three'
-import { Earth } from './earth'
+import {Earth} from './earth'
 import {Tree} from './tree';
 import {Forest} from './forest'
 import {Panzer} from './panzer'
@@ -93,9 +93,9 @@ export class App {
 
 	protected handleKeyDown(keyEvent){
 		if ( keyEvent.keyCode === 37) {//left
-			this.panzer.move(-0.3)
+			this.panzer.move(-0.07)
 		} else if ( keyEvent.keyCode === 39) {//right
-			this.panzer.move(0.3)
+			this.panzer.move(0.07)
 		}
 	}
 }

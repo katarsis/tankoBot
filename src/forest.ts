@@ -50,7 +50,9 @@ export class Forest {
 		newTree.quaternion.setFromUnitVectors(treeVector,rollingGroundVector);
 		
 		newTree.rotation.z+=+-0.1*Math.PI/10;
-		
+		this.treesPool.push(newTree);
 		this.earth.add(newTree);
 	}
+
+	
 }
