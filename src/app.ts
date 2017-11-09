@@ -18,8 +18,11 @@ export class App {
     protected tree: Tree;
     protected forest:  Forest;
     protected panzer: Panzer;
+    protected score: number;
+    protected scoreText;
 
     constructor() {
+    	this.score = 0;
         this.createScene();
         this.createCamera();
         this.createLight();
@@ -69,6 +72,15 @@ export class App {
     	this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 	    this.updateRendererSize();
 	    document.body.appendChild(this.renderer.domElement);
+
+	 	this.scoreText = document.createElement('div');
+		this.scoreText.style.position = 'absolute';
+		this.scoreText.style.width = "100";
+		this.scoreText.style.height = "100";
+		this.scoreText.innerHTML = "Your's score: "+this.score;
+		this.scoreText.style.top = 10 + 'px';
+		this.scoreText.style.left = 10 + 'px';
+		document.body.appendChild(this.scoreText);
 	}
 
 	protected updateRendererSize() {
@@ -79,6 +91,11 @@ export class App {
 	    window.requestAnimationFrame(() => this.animate());
 	    this.earth.rotate();
 	    this.renderer.render(this.scene, this.camera);
+	    var isBoom = this.forest.doInterscetLogic(this.panzer.getPosition().x);
+	    if(isBoom){
+	   	 this.score = this.score - 1;
+		}
+	    this.scoreText.innerHTML = "Your's score: "+this.score;
 	}
 
 	

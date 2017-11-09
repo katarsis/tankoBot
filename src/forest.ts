@@ -54,5 +54,20 @@ export class Forest {
 		this.earth.add(newTree);
 	}
 
+	public doInterscetLogic( panzerXpos){
+		for(var i =0; i < 360; i++){
+			var xPos = this.treesPool[i].position.x;
+			var yPos = this.treesPool[i].position.y;
+			if(i == 1){
+				console.log("x: "+xPos+" y: "+yPos)
+			}
+			if(panzerXpos > xPos-0.01 && panzerXpos < xPos+0.01 && yPos >0 && yPos <0.3){
+				return true;
+			}
+			
+			
+		}
+			return false;
+	}
 	
 }

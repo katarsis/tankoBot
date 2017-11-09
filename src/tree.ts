@@ -94,4 +94,8 @@ export class Tree {
 			vertices[i+vertexIndex].sub(offset);
 		}
 	}
+
+	public getXpos(){
+		return this.mesh.position.x;
+	}
 }
